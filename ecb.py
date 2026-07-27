@@ -19,15 +19,3 @@ class ECB:
         for block in BlockGenerator(ciphertext, padding=False).blocks():
             plaintext.append(self.cipher.decrypt(bytes(block)))
         return pkcs7.unpad(b''.join(plaintext), BlockGenerator.BLOCKSIZE)
-
-'''
-fips_key = b'YELLOW SUBMARINE'
-pt       = b'what the fuck'
-
-cipher = ECB(fips_key)
-ct = cipher.encrypt(pt)
-print(ct)
-
-pt2 = cipher.decrypt(ct)
-print(pt2)
-'''

@@ -38,13 +38,3 @@ class BlockGenerator:
         range_iter = range(0, len(self.data), self.BLOCKSIZE)
         block = lambda i: Block(self.data[i:i + self.BLOCKSIZE])
         yield from (block(i) for i in range_iter)
-
-'''
-data = b'hey whats up'
-
-for block in BlockGenerator(data, padding=True).blocks():
-    print(block)
-    print(block ^ block)
-
-b = BlockGenerator.Block(b'whatever')
-'''

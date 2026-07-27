@@ -54,13 +54,3 @@ class Keys:
         v1 = np.roll(v0, -1)
         v2 = sub_bytes(v1)
         return v2 + self.round_constants[round]
-
-'''
-fips_key = b'\x2b\x7e\x15\x16\x28\xae\xd2\xa6\xab\xf7\x15\x88\x09\xcf\x4f\x3c'
-key = Keys.from_bytes(fips_key)
-
-for key in key.round_keys:
-    for word in key:
-        print(f'{int(word[0]):02x}{int(word[1]):02x}{int(word[2]):02x}{int(word[3]):02x}')
-print('')
-'''

@@ -81,35 +81,3 @@ def inv_shift_rows(original_state):
     for i in range(len(state)):
         state[i] = np.roll(state[i], i)
     return state.T
-
-
-'''
-for n in range(256):
-    g = GF28(n)
-    s = sub_bytes(g)
-    i = inv_sub_bytes(s)
-    assert(g == i)
-
-print('')
-
-all_bytes = GF28(list(range(0x100)))
-subbed = sub_bytes(all_bytes)
-fixed = inv_sub_bytes(subbed)
-
-for u in range(0x10):
-    for l in range(0x10):
-        index = (u << 4) + l
-        b = subbed[index]
-        i = int(b)
-        print(f'{i:02x} ', end='')
-    print('')
-print('')
-
-for u in range(0x10):
-    for l in range(0x10):
-        index = (u << 4) + l
-        b = fixed[index]
-        i = int(b)
-        print(f'{i:02x} ', end='')
-    print('')
-'''

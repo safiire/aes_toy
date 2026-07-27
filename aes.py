@@ -50,18 +50,3 @@ class AES:
 
         as_galois = GF28(list(block))
         return as_galois.reshape(self.DIMENSION, self.DIMENSION)
-
-'''
-fips_key = b'\x2b\x7e\x15\x16\x28\xae\xd2\xa6\xab\xf7\x15\x88\x09\xcf\x4f\x3c'
-pt       = b'\x32\x43\xf6\xa8\x88\x5a\x30\x8d\x31\x31\x98\xa2\xe0\x37\x07\x34'
-print(list(map(lambda b: f'{b:02x}', list(pt))))
-
-cipher = AES(fips_key)
-ct = cipher.encrypt(pt)
-print(list(map(lambda b: f'{b:02x}', list(ct))))
-
-pt2 = cipher.decrypt(ct)
-print(list(map(lambda b: f'{b:02x}', list(pt2))))
-
-assert(pt == pt2)
-'''

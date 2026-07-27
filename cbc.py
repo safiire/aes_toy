@@ -26,16 +26,3 @@ class CBC:
             plaintext.append(bytes(decrypted))
             prev_block = block
         return pkcs7.unpad(b''.join(plaintext), BlockGenerator.BLOCKSIZE)
-
-'''
-fips_key = b'YELLOW SUBMARINE'
-iv       = b'aaaaaaaaaaaaaaaa'
-pt       = b'what the fuck'
-
-cipher = CBC(fips_key, iv)
-ct = cipher.encrypt(pt)
-print(ct)
-
-pt2 = cipher.decrypt(ct)
-print(pt2)
-'''
