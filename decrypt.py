@@ -16,7 +16,7 @@ def parse() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def create_key(password: str, salt: binary) -> binary:
+def create_key(password: str, salt: bytes) -> bytes:
     block_size = 16
     iterations = 600_000
     return pbkdf2_hmac('sha256', password.encode(), salt, iterations, dklen=block_size)

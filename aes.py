@@ -1,5 +1,5 @@
 from keys import Keys
-from galois_types import GF28
+from galois_types import GF28, Matrix, Vector
 from transforms import sub_bytes, shift_rows, mix_columns
 from transforms import inv_sub_bytes, inv_shift_rows, inv_mix_columns
 

@@ -18,7 +18,7 @@ def parse() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def create_key(password: str) -> tuple[binary, binary]:
+def create_key(password: str) -> tuple[bytes, bytes]:
     block_size = 16
     iterations = 600_000
     salt = urandom(block_size)
