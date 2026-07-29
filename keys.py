@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Self
 from transforms import sub_bytes
-from galois_types import GF28
+from galois_types import GF28, Matrix, Vector
 
 
 class Keys:
