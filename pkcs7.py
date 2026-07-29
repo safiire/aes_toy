@@ -3,7 +3,7 @@ class PKCS7Error(Exception):
 
 
 def pad(data: bytes, block_size: int) -> bytes:
-    if 1 > block_size < 255:
+    if block_size < 1 or block_size > 255:
         raise PKCS7Error(f'Blocksize {block_size}: 1 > block size < 255')
     data_length = len(data)
     padding_needed = block_size - data_length % block_size
