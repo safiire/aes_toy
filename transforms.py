@@ -33,20 +33,20 @@ INV_SBOX = GF2([
 ])
 
 
-MIX_COLUMN = GF28([
+MIX_COLUMN_T = GF28([
     [ 0x2, 0x3, 0x1, 0x1 ],
     [ 0x1, 0x2, 0x3, 0x1 ],
     [ 0x1, 0x1, 0x2, 0x3 ],
     [ 0x3, 0x1, 0x1, 0x2 ]
-])
+]).T
 
 
-INV_MIX_COLUMN = GF28([
+INV_MIX_COLUMN_T = GF28([
     [ 0xe, 0xb, 0xd, 0x9 ],
     [ 0x9, 0xe, 0xb, 0xd ],
     [ 0xd, 0x9, 0xe, 0xb ],
     [ 0xb, 0xd, 0x9, 0xe ]
-])
+]).T
 
 
 def sub_bytes(elements):
@@ -62,11 +62,11 @@ def inv_sub_bytes(elements):
 
 
 def mix_columns(state):
-    return (MIX_COLUMN @ state.T).T
+    return state @ MIX_COLUMN_T
 
 
 def inv_mix_columns(state):
-    return (INV_MIX_COLUMN @ state.T).T  # can I just transpose MIX_COLUMN instead?
+    return state @ INV_MIX_COLUMN_T
 
 
 def shift_rows(original_state):
