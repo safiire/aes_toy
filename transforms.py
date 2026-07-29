@@ -49,34 +49,34 @@ INV_MIX_COLUMN_T = GF28([
 ]).T
 
 
-def sub_bytes(elements):
+def sub_bytes(elements: galois.FieldArray) -> galois.FieldArray:
     inverse_elements = elements**INVERSE_EXPONENT
     bit_vectors = inverse_elements.vector() @ SBOX + C
     return GF28.Vector(bit_vectors)
 
 
-def inv_sub_bytes(elements):
+def inv_sub_bytes(elements: galois.FieldArray) -> galois.FieldArray:
     bit_vectors = elements.vector()
     inverse_bit_vectors = bit_vectors @ INV_SBOX + C_INV
     return GF28.Vector(inverse_bit_vectors)**INVERSE_EXPONENT
 
 
-def mix_columns(state):
+def mix_columns(state: Matrix) -> Matrix:
     return state @ MIX_COLUMN_T
 
 
-def inv_mix_columns(state):
+def inv_mix_columns(state: Matrix) -> Matrix:
     return state @ INV_MIX_COLUMN_T
 
 
-def shift_rows(original_state):
+def shift_rows(original_state: Matrix) -> Matrix:
     state = original_state.copy().T
     for i in range(len(state)):
         state[i] = np.roll(state[i], -i)
     return state.T
 
 
-def inv_shift_rows(original_state):
+def inv_shift_rows(original_state: Matrix) -> Matrix:
     state = original_state.copy().T
     for i in range(len(state)):
         state[i] = np.roll(state[i], i)
