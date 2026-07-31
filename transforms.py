@@ -1,5 +1,6 @@
 import numpy as np
-from galois_types import GF2, GF28
+import galois
+from galois_types import GF2, GF28, Matrix
 
 
 C     = GF28(0b01100011).vector()
