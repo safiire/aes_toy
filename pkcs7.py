@@ -12,10 +12,18 @@ def pad(data: bytes, block_size: int) -> bytes:
 
 
 def unpad(data: bytes, block_size: int) -> bytes:
+    if block_size < 1 or block_size > 255:
+        raise PKCS7Error(f'Blocksize {block_size}: 1 > block size < 255')
+
     if len(data) % block_size != 0:
         raise PKCS7Error(f'Invalid Block Size')
+
     padding_size = data[-1]
+    if padding_size < 1 or padding_size > block_size:
+        raise PKCS7Error(f'Invalid Padding Size')
+
     padding_bytes = data[-padding_size:]
     if not all(byte == padding_size for byte in padding_bytes):
         raise PKCS7Error(f'Invalid Padding bytes')
+
     return data[0:-padding_size]
