@@ -6,6 +6,7 @@ from cbc import CBC
 from hashlib import pbkdf2_hmac
 from base64 import b64encode, b64decode
 from json import dumps, loads
+from sys import stderr
 
 
 def parse() -> argparse.Namespace:
@@ -35,12 +36,20 @@ if __name__ == '__main__':
 
     if input_data['mode'] == 'ecb':
         ecb = ECB(key)
-        pt = ecb.decrypt(ct)
+        try:
+            pt = ecb.decrypt(ct)
+        except Exception:
+            print('Decrypt Failed', file=stderr)
+            exit(1)
 
     elif input_data['mode'] == 'cbc':
         iv = b64decode(input_data['iv'])
         cbc = CBC(key, iv)
-        pt = cbc.decrypt(ct)
+        try:
+            pt = cbc.decrypt(ct)
+        except Exception:
+            print('Decrypt Failed', file=stderr)
+            exit(1)
 
     with open(args.out_file, 'wb') as fp_out:
         fp_out.write(pt)
