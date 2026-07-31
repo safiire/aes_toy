@@ -1,5 +1,5 @@
 import numpy as np
-from typing import Self
+from typing import Self, cast
 from transforms import sub_bytes
 from galois_types import GF28, Matrix, Vector
 
@@ -16,7 +16,7 @@ class Keys:
         if len(key) != 16:
             raise ValueError('Key must be 128 bits')
 
-        self.user_key = key.reshape(self.DIMENSION, self.DIMENSION)
+        self.user_key = cast(Matrix, key.reshape(self.DIMENSION, self.DIMENSION))
         self.round_constants = self.build_round_constants(num_rounds)
         self.round_keys = self.key_expansion(self.user_key, num_rounds)
 

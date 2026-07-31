@@ -25,8 +25,8 @@ def create_key(password: str, salt: bytes) -> bytes:
 if __name__ == '__main__':
     args = parse()
 
-    with open(args.in_file, 'r') as fp:
-        input_data = loads(fp.read())
+    with open(args.in_file, 'r') as fp_in:
+        input_data = loads(fp_in.read())
 
     salt = b64decode(input_data['salt'])
     ct = b64decode(input_data['ciphertext'])
@@ -34,13 +34,13 @@ if __name__ == '__main__':
     key = create_key(args.password, salt)
 
     if input_data['mode'] == 'ecb':
-        cipher = ECB(key)
-        pt = cipher.decrypt(ct)
+        ecb = ECB(key)
+        pt = ecb.decrypt(ct)
 
     elif input_data['mode'] == 'cbc':
         iv = b64decode(input_data['iv'])
-        cipher = CBC(key, iv)
-        pt = cipher.decrypt(ct)
+        cbc = CBC(key, iv)
+        pt = cbc.decrypt(ct)
 
-    with open(args.out_file, 'wb') as fp:
-        fp.write(pt)
+    with open(args.out_file, 'wb') as fp_out:
+        fp_out.write(pt)

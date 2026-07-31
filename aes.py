@@ -1,4 +1,5 @@
 from keys import Keys
+from typing import cast
 from galois_types import GF28, Matrix, Vector
 from transforms import sub_bytes, shift_rows, mix_columns
 from transforms import inv_sub_bytes, inv_shift_rows, inv_mix_columns
@@ -49,4 +50,4 @@ class AES:
             raise ValueError(f'Block size must be {blocksize}')
 
         as_galois = GF28(list(block))
-        return as_galois.reshape(self.DIMENSION, self.DIMENSION)
+        return cast(Matrix, as_galois.reshape(self.DIMENSION, self.DIMENSION))

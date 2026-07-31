@@ -15,9 +15,6 @@ class Block:
         ret = bytes(x ^ y for x, y in zip(self.data, other.data))
         return self.__class__(ret)
 
-    def __repr__(self) -> str:
-        return f'Block: {self.data}'
-
 
 class BlockGenerator:
     BLOCKSIZE = 16
@@ -35,7 +32,7 @@ class BlockGenerator:
             self.data = data
 
 
-    def blocks(self):
+    def blocks(self) -> Iterator[Block]:
         range_iter = range(0, len(self.data), self.BLOCKSIZE)
         block = lambda i: Block(self.data[i:i + self.BLOCKSIZE])
         yield from (block(i) for i in range_iter)

@@ -30,23 +30,23 @@ if __name__ == '__main__':
     args = parse()
     output = { 'mode': args.mode }
 
-    with open(args.in_file, 'rb') as fp:
-        input_data = fp.read()
+    with open(args.in_file, 'rb') as fp_in:
+        input_data = fp_in.read()
 
     key, salt = create_key(args.password)
     output['salt'] = b64encode(salt).decode()
 
     if args.mode == 'ecb':
-        cipher = ECB(key)
-        ct = cipher.encrypt(input_data)
+        ecb = ECB(key)
+        ct = ecb.encrypt(input_data)
 
     elif args.mode == 'cbc':
         iv = urandom(16)
         output['iv'] = b64encode(iv).decode()
-        cipher = CBC(key, iv)
-        ct = cipher.encrypt(input_data)
+        cbc = CBC(key, iv)
+        ct = cbc.encrypt(input_data)
 
     output['ciphertext'] = b64encode(ct).decode()
 
-    with open(args.out_file, 'w') as fp:
-        fp.write(dumps(output, indent=2))
+    with open(args.out_file, 'w') as fp_out:
+        fp_out.write(dumps(output, indent=2))
